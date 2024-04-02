@@ -9,7 +9,8 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class TaskOneMapper extends Mapper<Object, Text, Text, IntWritable> {
+//uses metadat.txt
+public class Task1Mapper extends Mapper<Object, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
     private Text artist = new Text();

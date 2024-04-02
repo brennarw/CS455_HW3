@@ -13,6 +13,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+
+//TODO: need to combine both datasets into one big one!
+
 public class MapReduce {
 
     private Configuration conf = new Configuration();
@@ -37,9 +40,26 @@ public class MapReduce {
     public void taskOne(String input, String output){
         setJob("QuestionOneJob");
         getJob().setJarByClass(MapReduce.class);
-        getJob().setMapperClass(TaskOneMapper.class);
-        getJob().setCombinerClass(TaskOneReducer.class); //combiner is in the reducer
-        getJob().setReducerClass(TaskOneReducer.class);
+        getJob().setMapperClass(Task1Mapper.class);
+        //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
+        getJob().setReducerClass(Task1Reducer.class);
+        getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
+        getJob().setOutputValueClass(IntWritable.class);
+        try{
+            FileInputFormat.addInputPath(job, new Path(input));
+            FileOutputFormat.setOutputPath(job, new Path(output));
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        //System.exit(job.waitForCompletion(true) ? 0 : 1); // do this after all tasks have completed from main?
+    }
+
+    public void taskTwo(String input, String output) {
+        setJob("QuestionTwoJob");
+        getJob().setJarByClass(MapReduce.class);
+        getJob().setMapperClass(Task2Mapper.class);
+        //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
+        getJob().setReducerClass(Task2Reducer.class);
         getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
         getJob().setOutputValueClass(IntWritable.class);
         try{
@@ -63,9 +83,8 @@ public class MapReduce {
         MapReduce mapReduce = new MapReduce();
 
         try{
-            mapReduce.taskOne("/hw3Files/metadata.txt", "/hw3Output/q1");
-            //mapReduce.taskTwo(input, output);
-            //....
+            mapReduce.taskOne(input + "/metadata.txt", output + "/q1");
+            mapReduce.taskTwo(input + "/analysis.txt", output + "/q2"); //need to grab the songID from analysis then find the associated artistID from metadata.txt
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
