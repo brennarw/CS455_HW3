@@ -77,8 +77,8 @@ public class MapReduce {
             System.exit(0); 
         }
 
-        String input = args[0]; //this is the path to where to find the dataset
-        String output = args[1]; //this is the path to where to store the output
+        String input = args[1]; //this is the path to where to find the dataset
+        String output = args[2]; //this is the path to where to store the output
 
         MapReduce mapReduce = new MapReduce();
 
