@@ -1,4 +1,4 @@
-package csx55.hadoop;
+package csx55.hadoop.QuestionOne;
 
 import java.io.IOException;
 
@@ -8,10 +8,10 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class Task1Reducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+public class ReducerOne extends Reducer<Text,IntWritable, Text, IntWritable> {
 
     private Text artistID = new Text();
-    private IntWritable maxSongs = new IntWritable();
+    private IntWritable songCount = new IntWritable();
     
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
@@ -19,14 +19,15 @@ public class Task1Reducer extends Reducer<Text,IntWritable,Text,IntWritable> {
       for (IntWritable val : values) {
         sum += val.get();
       }
-      if(sum > maxSongs.get()){
+      //if(sum > maxSongs.get()){
         artistID.set(key);
-        maxSongs.set(sum);
-      }
+        songCount.set(sum);
+        context.write(artistID, songCount);
+      //}
     }
 
     //cleanup runs only once after all reduce tasks have completed
-    protected void cleanup(Context context) throws IOException, InterruptedException {
-      context.write(artistID, maxSongs);
-    }
+    // protected void cleanup(Context context) throws IOException, InterruptedException {
+    //   context.write(artistID, maxSongs);
+    // }
 }

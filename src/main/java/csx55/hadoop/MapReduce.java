@@ -13,6 +13,10 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import csx55.hadoop.QuestionOne.QuestionOneMain;
+import csx55.hadoop.QuestionOne.MapperOne;
+import csx55.hadoop.QuestionOne.ReducerOne;
+
 
 //TODO: need to combine both datasets into one big one!
 
@@ -37,22 +41,22 @@ public class MapReduce {
         }
     }
 
-    public void taskOne(String input, String output){
-        setJob("QuestionOneJob");
-        getJob().setJarByClass(MapReduce.class);
-        getJob().setMapperClass(Task1Mapper.class);
-        //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
-        getJob().setReducerClass(Task1Reducer.class);
-        getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-        getJob().setOutputValueClass(IntWritable.class);
-        try{
-            FileInputFormat.addInputPath(job, new Path(input));
-            FileOutputFormat.setOutputPath(job, new Path(output));
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-        //System.exit(job.waitForCompletion(true) ? 0 : 1); // do this after all tasks have completed from main?
-    }
+    // public void taskOne(String input, String output){
+    //     setJob("QuestionOneJob");
+    //     getJob().setJarByClass(MapReduce.class);
+    //     getJob().setMapperClass(Task1Mapper.class);
+    //     //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
+    //     getJob().setReducerClass(Task1Reducer.class);
+    //     getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
+    //     getJob().setOutputValueClass(IntWritable.class);
+    //     try{
+    //         FileInputFormat.addInputPath(job, new Path(input));
+    //         FileOutputFormat.setOutputPath(job, new Path(output));
+    //         getJob().waitForCompletion(true); // do this after all tasks have completed from main?
+    //     } catch(InterruptedException | ClassNotFoundException | IOException e){
+    //         System.out.println(e.getMessage());
+    //     }
+    // }
 
     public void taskTwo(String input, String output) {
         setJob("QuestionTwoJob");
@@ -73,7 +77,7 @@ public class MapReduce {
 
     public static void main(String[] args) throws Exception{
 
-        if(args.length != 2){
+        if(args.length != 3){
             System.exit(0); 
         }
 
@@ -82,12 +86,16 @@ public class MapReduce {
 
         MapReduce mapReduce = new MapReduce();
 
-        try{
-            mapReduce.taskOne(input + "/metadata.txt", output + "/q1");
-            mapReduce.taskTwo(input + "/analysis.txt", output + "/q2"); //need to grab the songID from analysis then find the associated artistID from metadata.txt
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+        mapReduce.setJob("QuestionOneIntermediateJob");
+        QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
+        questionOne.answerIntermediateQuestion();
+        questionOne.setJob("QuestionOneFinalJob");
+        questionOne.answerFinalQuestion();
+
+        
+        //mapReduce.taskOne(input + "/metadata.txt", output + "/q1");
+        //mapReduce.taskTwo(input + "/analysis.txt", output + "/q2"); //need to grab the songID from analysis then find the associated artistID from metadata.txt
+        
 
 
     }

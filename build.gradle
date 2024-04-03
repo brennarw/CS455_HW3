@@ -16,6 +16,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'MapReduce'
+        attributes 'Main-Class': 'csx55.hadoop.MapReduce'
     }
 }
