@@ -1,4 +1,4 @@
-package csx55.hadoop.QuestionOne;
+package csx55.hadoop.QuestionThree;
 
 import java.io.IOException;
 
@@ -14,14 +14,14 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import csx55.hadoop.Driver;
 
 
-public class QuestionOneMain {
+public class QuestionThreeMain {
     
     private Configuration conf = new Configuration();
     private Job job;
     private String input;
     private String output;
 
-    public QuestionOneMain(Job job, String input, String output){
+    public QuestionThreeMain(Job job, String input, String output){
         this.job = job;
         this.input = input;
         this.output = output;

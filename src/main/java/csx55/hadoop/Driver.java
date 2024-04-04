@@ -16,11 +16,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
 import csx55.hadoop.QuestionOne.MapperOne;
 import csx55.hadoop.QuestionOne.ReducerOne;
+import csx55.hadoop.QuestionThree.QuestionThreeMain;
 
 
 //TODO: need to combine both datasets into one big one!
 
-public class MapReduce {
+public class Driver {
 
     private Configuration conf = new Configuration();
     private Job job;
@@ -58,22 +59,22 @@ public class MapReduce {
     //     }
     // }
 
-    public void taskTwo(String input, String output) {
-        setJob("QuestionTwoJob");
-        getJob().setJarByClass(MapReduce.class);
-        getJob().setMapperClass(Task2Mapper.class);
-        //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
-        getJob().setReducerClass(Task2Reducer.class);
-        getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-        getJob().setOutputValueClass(IntWritable.class);
-        try{
-            FileInputFormat.addInputPath(job, new Path(input));
-            FileOutputFormat.setOutputPath(job, new Path(output));
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-        //System.exit(job.waitForCompletion(true) ? 0 : 1); // do this after all tasks have completed from main?
-    }
+    // public void taskTwo(String input, String output) {
+    //     setJob("QuestionTwoJob");
+    //     getJob().setJarByClass(Driver.class);
+    //     getJob().setMapperClass(Task2Mapper.class);
+    //     //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
+    //     getJob().setReducerClass(Task2Reducer.class);
+    //     getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
+    //     getJob().setOutputValueClass(IntWritable.class);
+    //     try{
+    //         FileInputFormat.addInputPath(job, new Path(input));
+    //         FileOutputFormat.setOutputPath(job, new Path(output));
+    //     } catch(IOException e){
+    //         System.out.println(e.getMessage());
+    //     }
+    //     //System.exit(job.waitForCompletion(true) ? 0 : 1); // do this after all tasks have completed from main?
+    // }
 
     public static void main(String[] args) throws Exception{
 
@@ -84,13 +85,15 @@ public class MapReduce {
         String input = args[1]; //this is the path to where to find the dataset
         String output = args[2]; //this is the path to where to store the output
 
-        MapReduce mapReduce = new MapReduce();
+        Driver mapReduce = new Driver();
 
         mapReduce.setJob("QuestionOneIntermediateJob");
         QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
-        questionOne.answerIntermediateQuestion();
-        questionOne.setJob("QuestionOneFinalJob");
-        questionOne.answerFinalQuestion();
+        questionOne.answerQuestion();
+
+        mapReduce.setJob("QuestionThreeFinalJob");
+        QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
+        questionThree.answerQuestion();
 
         
         //mapReduce.taskOne(input + "/metadata.txt", output + "/q1");
@@ -98,6 +101,6 @@ public class MapReduce {
         
 
 
-    }
+    } 
 
 }
