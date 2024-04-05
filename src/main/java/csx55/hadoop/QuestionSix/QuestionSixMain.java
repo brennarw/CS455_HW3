@@ -1,4 +1,4 @@
-package csx55.hadoop.QuestionFour;
+package csx55.hadoop.QuestionSix;
 
 import java.io.IOException;
 
@@ -11,14 +11,13 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import csx55.hadoop.Driver;
 
-//which artist has the highest total time spent fading in their songs?
-public class QuestionFourMain {
+public class QuestionSixMain {
     
     private Job job;
     private String input;
     private String output;
 
-    public QuestionFourMain(Job job, String input, String output){
+    public QuestionSixMain(Job job, String input, String output){
         this.job = job;
         this.input = input;
         this.output = output;
@@ -39,4 +38,5 @@ public class QuestionFourMain {
             System.out.println(e.getMessage());
         }
     }
+
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -30,10 +31,10 @@ public class QuestionOneMain {
         //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
         job.setReducerClass(ReducerOne.class);
         job.setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-        job.setOutputValueClass(FloatWritable.class);
+        job.setOutputValueClass(IntWritable.class);
         try{
-            FileInputFormat.addInputPath(job, new Path(input + "/analysis.txt"));
-            FileOutputFormat.setOutputPath(job, new Path(output + "/q3"));
+            FileInputFormat.addInputPath(job, new Path(input + "/metadata.txt"));
+            FileOutputFormat.setOutputPath(job, new Path(output + "/q1"));
             job.waitForCompletion(true); // do this after all tasks have completed from main?
         } catch(InterruptedException | ClassNotFoundException | IOException e){
             System.out.println(e.getMessage());

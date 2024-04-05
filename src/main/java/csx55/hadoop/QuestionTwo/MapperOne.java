@@ -2,15 +2,17 @@ package csx55.hadoop.QuestionTwo;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 //uses both data sets
-public class MapperOne extends Mapper<Object, Text, Text, IntWritable[]> {
+public class MapperOne extends Mapper<Object, Text, Text, FloatWritable[]> {
 
-    private final static IntWritable one = new IntWritable(1);
-    private IntWritable loudness = new IntWritable();
+    private final static FloatWritable one = new FloatWritable(1);
+    private FloatWritable loudness = new FloatWritable();
     private Text artistID = new Text();
 
     @Override
@@ -21,9 +23,9 @@ public class MapperOne extends Mapper<Object, Text, Text, IntWritable[]> {
         String[] attributes = value.toString().split("\\|");
 
         artistID.set(attributes[34]);  
-        loudness.set(Integer.parseInt(attributes[9])); 
+        loudness.set(Float.parseFloat(attributes[9])); 
 
-        IntWritable[] songSpecifics = new IntWritable[2];
+        FloatWritable[] songSpecifics = new FloatWritable[2];
         songSpecifics[0] = one;
         songSpecifics[1] = loudness;
 

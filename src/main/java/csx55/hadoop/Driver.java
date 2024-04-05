@@ -52,17 +52,17 @@ public class Driver {
         QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
         questionTwo.answerQuestion();
 
-        mapReduce.setJob("QuestionThreeJob");
-        QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
-        questionThree.answerQuestion();
+        // mapReduce.setJob("QuestionThreeJob");
+        // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
+        // questionThree.answerQuestion();
 
-        mapReduce.setJob("QuestionFourJob");
-        QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
-        questionFour.answerQuestion();
+        // mapReduce.setJob("QuestionFourJob");
+        // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
+        // questionFour.answerQuestion();
 
-        mapReduce.setJob("QuestionFiveJob");
-        QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
-        questionFive.answerQuestion();
+        // mapReduce.setJob("QuestionFiveJob");
+        // QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
+        // questionFive.answerQuestion();
 
 
         

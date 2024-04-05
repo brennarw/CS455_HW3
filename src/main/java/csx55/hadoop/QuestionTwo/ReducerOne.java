@@ -2,27 +2,29 @@ package csx55.hadoop.QuestionTwo;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ReducerOne extends Reducer<Text, IntWritable[], Text, IntWritable> {
+public class ReducerOne extends Reducer<Text, FloatWritable[], Text, FloatWritable> {
 
     private Text artistID = new Text();
-    private IntWritable maxAverageLoudness = new IntWritable();
+    private FloatWritable maxAverageLoudness = new FloatWritable();
     
     @Override
-    protected void reduce(Text key, Iterable<IntWritable[]> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<FloatWritable[]> values, Context context) throws IOException, InterruptedException {
 
         int loudness = 0;
         int songCount = 0;
 
-        for (IntWritable[] val : values) {
+        for (FloatWritable[] val : values) {
             songCount += val[0].get();
             loudness += val[1].get();
         }
 
-        int loudnessAverage = loudness/songCount;
+        float loudnessAverage = loudness/songCount;
         
         if(loudnessAverage > maxAverageLoudness.get()){
             artistID.set(key);
