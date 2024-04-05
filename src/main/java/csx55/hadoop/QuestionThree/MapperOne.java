@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 //uses metadat.txt
 public class MapperOne extends Mapper<Object, Text, Text, FloatWritable> {
 
-    private final static FloatWritable songHottness = new FloatWritable(1);
+    private static FloatWritable songHottness = new FloatWritable();
     private Text songID = new Text();
 
     //this mapper needs to find each unique artistID and write each instance found to the reducer

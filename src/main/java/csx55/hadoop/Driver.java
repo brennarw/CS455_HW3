@@ -12,8 +12,6 @@ import csx55.hadoop.QuestionTwo.QuestionTwoMain;
 import csx55.hadoop.QuestionThree.QuestionThreeMain;
 
 
-//TODO: need to combine both datasets into one big one!
-
 public class Driver {
 
     private Configuration conf = new Configuration();

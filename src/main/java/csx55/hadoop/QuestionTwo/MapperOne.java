@@ -20,8 +20,8 @@ public class MapperOne extends Mapper<Object, Text, Text, IntWritable[]> {
         //value = [songCount, loudness]
         String[] attributes = value.toString().split("\\|");
 
-        artistID.set(attributes[0]); //TODO: set this to the correct index 
-        loudness.set(Integer.parseInt(attributes[0])); //TODO: set this to the correct index - NOTE: might be a list of songs and loudness?
+        artistID.set(attributes[34]);  
+        loudness.set(Integer.parseInt(attributes[9])); 
 
         IntWritable[] songSpecifics = new IntWritable[2];
         songSpecifics[0] = one;

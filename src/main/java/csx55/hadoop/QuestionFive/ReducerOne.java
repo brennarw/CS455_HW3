@@ -6,49 +6,46 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ReducerOne extends Reducer<Text, IntWritable, Text, IntWritable> {
+//have two loops in the reducer: one loop that finds the max/min/median, and one loop that finds all other durations that match these values
+//since they all have the same key, they will all be sent to the same reducer!
+public class ReducerOne extends Reducer<IntWritable, Text, Text, IntWritable> {
 
-    private Text songIDLongest = new Text();
-    private Text songIDShortest = new Text();
-    private Text songIDMedian = new Text();
     private IntWritable longestDuration = new IntWritable();
     private IntWritable shortestDuration = new IntWritable(Integer.MAX_VALUE);
     private IntWritable medianDuration = new IntWritable();
     
     @Override
-    protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-        int duration = 0;
+        //first for loop finds the max/min/median values
+        for (Text val : values) {
+            int songDuration = Integer.parseInt(val.toString().split("\\|")[1]);
 
-        for (IntWritable val : values) {
-            duration += val.get();
-        }
+            if(songDuration > longestDuration.get()){
+                longestDuration.set(songDuration);
+            }
 
-        // int loudnessAverage = loudness/songCount;
-        
-        if(duration > longestDuration.get()){
-            songIDLongest.set(key);
-            longestDuration.set(duration);
-        }
-
-        if(duration < shortestDuration.get()){
-            songIDShortest.set(key);
-            shortestDuration.set(duration);
-        }
-
-        int calculatedMedian = (longestDuration.get() + shortestDuration.get()) / 2; //will this calculate it with the updated longes/shortest durations?
-
-        if(duration == calculatedMedian + 60 || duration == calculatedMedian - 60){
-            songIDMedian.set(key);
-            medianDuration.set(duration);
+            if(songDuration < shortestDuration.get()){
+                shortestDuration.set(songDuration);
+            }
         }
         
-    }
-    
-    //cleanup runs only once after all reduce tasks have completed
-    protected void cleanup(Context context) throws IOException, InterruptedException {
-        context.write(songIDLongest, longestDuration);
-        context.write(songIDShortest, shortestDuration);
-        context.write(songIDMedian, medianDuration);
+        medianDuration.set((longestDuration.get() + shortestDuration.get()) / 2); //will this calculate it with the updated longes/shortest durations?
+        //second for loop to write all songs that match these max/min/median values
+        for(Text val: values){
+            String[] keyValue = val.toString().split("\\|");
+            int duration = Integer.parseInt(keyValue[0]);
+
+            if(duration == longestDuration.get()){
+                context.write(new Text(keyValue[0]), new IntWritable(duration));
+            }
+            else if(duration == shortestDuration.get()){
+                context.write(new Text(keyValue[0]), new IntWritable(duration));
+            }
+            else if(duration == medianDuration.get() + 60 || duration == medianDuration.get() - 60){
+                context.write(new Text(keyValue[0]), new IntWritable(duration));
+            }
+        }
+        
     }
 }

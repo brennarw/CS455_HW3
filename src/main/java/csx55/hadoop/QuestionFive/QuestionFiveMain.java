@@ -12,7 +12,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import csx55.hadoop.Driver;
 
 //what is the longest song(s)? The shortest song(s)? The song(s) of median length?
-//TODO: need a second mapper?
 public class QuestionFiveMain {
     
     private Job job;
