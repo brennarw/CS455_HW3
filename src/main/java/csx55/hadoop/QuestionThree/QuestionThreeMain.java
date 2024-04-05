@@ -2,10 +2,8 @@ package csx55.hadoop.QuestionThree;
 
 import java.io.IOException;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -16,7 +14,6 @@ import csx55.hadoop.Driver;
 
 public class QuestionThreeMain {
     
-    private Configuration conf = new Configuration();
     private Job job;
     private String input;
     private String output;
@@ -28,7 +25,6 @@ public class QuestionThreeMain {
     }
 
     public void answerQuestion(){
-        //setJob("QuestionTwoJob");
         job.setJarByClass(Driver.class);
         job.setMapperClass(MapperOne.class);
         //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed

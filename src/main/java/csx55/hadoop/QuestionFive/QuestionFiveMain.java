@@ -1,4 +1,4 @@
-package csx55.hadoop.QuestionOne;
+package csx55.hadoop.QuestionFive;
 
 import java.io.IOException;
 
@@ -11,14 +11,15 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import csx55.hadoop.Driver;
 
-
-public class QuestionOneMain {
+//what is the longest song(s)? The shortest song(s)? The song(s) of median length?
+//TODO: need a second mapper?
+public class QuestionFiveMain {
     
     private Job job;
     private String input;
     private String output;
 
-    public QuestionOneMain(Job job, String input, String output){
+    public QuestionFiveMain(Job job, String input, String output){
         this.job = job;
         this.input = input;
         this.output = output;
@@ -32,11 +33,12 @@ public class QuestionOneMain {
         job.setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
         job.setOutputValueClass(FloatWritable.class);
         try{
-            FileInputFormat.addInputPath(job, new Path(input + "/analysis.txt"));
-            FileOutputFormat.setOutputPath(job, new Path(output + "/q3"));
+            FileInputFormat.addInputPath(job, new Path(input + "/combined_data.txt"));
+            FileOutputFormat.setOutputPath(job, new Path(output + "/q5"));
             job.waitForCompletion(true); // do this after all tasks have completed from main?
         } catch(InterruptedException | ClassNotFoundException | IOException e){
             System.out.println(e.getMessage());
         }
     }
+
 }

@@ -2,10 +2,7 @@ package csx55.hadoop.QuestionOne;
 
 import java.io.IOException;
 
-import javax.naming.Context;
-
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.ObjectWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 

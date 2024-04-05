@@ -22,7 +22,6 @@ public class ReducerOne extends Reducer<Text, FloatWritable, Text, FloatWritable
       if(sum > maxSongHottness.get()){
         songID.set(key);
         maxSongHottness.set(sum);
-        //context.write(songID, maxSongHottness);
       }
     }
 

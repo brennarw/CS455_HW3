@@ -1,21 +1,14 @@
 package csx55.hadoop;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import csx55.hadoop.QuestionFive.QuestionFiveMain;
+import csx55.hadoop.QuestionFour.QuestionFourMain;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
-import csx55.hadoop.QuestionOne.MapperOne;
-import csx55.hadoop.QuestionOne.ReducerOne;
+import csx55.hadoop.QuestionTwo.QuestionTwoMain;
 import csx55.hadoop.QuestionThree.QuestionThreeMain;
 
 
@@ -42,40 +35,6 @@ public class Driver {
         }
     }
 
-    // public void taskOne(String input, String output){
-    //     setJob("QuestionOneJob");
-    //     getJob().setJarByClass(MapReduce.class);
-    //     getJob().setMapperClass(Task1Mapper.class);
-    //     //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
-    //     getJob().setReducerClass(Task1Reducer.class);
-    //     getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-    //     getJob().setOutputValueClass(IntWritable.class);
-    //     try{
-    //         FileInputFormat.addInputPath(job, new Path(input));
-    //         FileOutputFormat.setOutputPath(job, new Path(output));
-    //         getJob().waitForCompletion(true); // do this after all tasks have completed from main?
-    //     } catch(InterruptedException | ClassNotFoundException | IOException e){
-    //         System.out.println(e.getMessage());
-    //     }
-    // }
-
-    // public void taskTwo(String input, String output) {
-    //     setJob("QuestionTwoJob");
-    //     getJob().setJarByClass(Driver.class);
-    //     getJob().setMapperClass(Task2Mapper.class);
-    //     //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
-    //     getJob().setReducerClass(Task2Reducer.class);
-    //     getJob().setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-    //     getJob().setOutputValueClass(IntWritable.class);
-    //     try{
-    //         FileInputFormat.addInputPath(job, new Path(input));
-    //         FileOutputFormat.setOutputPath(job, new Path(output));
-    //     } catch(IOException e){
-    //         System.out.println(e.getMessage());
-    //     }
-    //     //System.exit(job.waitForCompletion(true) ? 0 : 1); // do this after all tasks have completed from main?
-    // }
-
     public static void main(String[] args) throws Exception{
 
         if(args.length != 3){
@@ -87,17 +46,29 @@ public class Driver {
 
         Driver mapReduce = new Driver();
 
-        mapReduce.setJob("QuestionOneIntermediateJob");
+        mapReduce.setJob("QuestionOneJob");
         QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
         questionOne.answerQuestion();
+        
+        mapReduce.setJob("QuestionTwoJob");
+        QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
+        questionTwo.answerQuestion();
 
-        mapReduce.setJob("QuestionThreeFinalJob");
+        mapReduce.setJob("QuestionThreeJob");
         QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
         questionThree.answerQuestion();
 
+        mapReduce.setJob("QuestionFourJob");
+        QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
+        questionFour.answerQuestion();
+
+        mapReduce.setJob("QuestionFiveJob");
+        QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
+        questionFive.answerQuestion();
+
+
         
-        //mapReduce.taskOne(input + "/metadata.txt", output + "/q1");
-        //mapReduce.taskTwo(input + "/analysis.txt", output + "/q2"); //need to grab the songID from analysis then find the associated artistID from metadata.txt
+       
         
 
 
