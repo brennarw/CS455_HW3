@@ -30,7 +30,7 @@ public class QuestionTwoMain {
         //getJob().setCombinerClass(TaskOneReducer.class); //only add a combiner if needed
         job.setReducerClass(ReducerOne.class);
         job.setOutputKeyClass(Text.class); //the text is the dataset we are reading in?
-        job.setOutputValueClass(FloatWritable.class);
+        job.setOutputValueClass(Text.class); //this is the output of the reducer //TODO: check why this isn't working when set to FloatWritable.class
         try{
             FileInputFormat.addInputPath(job, new Path(input + "/combined_data.txt"));
             FileOutputFormat.setOutputPath(job, new Path(output + "/q2"));

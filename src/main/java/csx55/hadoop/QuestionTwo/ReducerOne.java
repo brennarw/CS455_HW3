@@ -8,20 +8,21 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ReducerOne extends Reducer<Text, FloatWritable[], Text, FloatWritable> {
+public class ReducerOne extends Reducer<Text, Text, Text, FloatWritable> {
 
     private Text artistID = new Text();
     private FloatWritable maxAverageLoudness = new FloatWritable();
     
     @Override
-    protected void reduce(Text key, Iterable<FloatWritable[]> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-        int loudness = 0;
-        int songCount = 0;
+        float loudness = 0;
+        float songCount = 0;
 
-        for (FloatWritable[] val : values) {
-            songCount += val[0].get();
-            loudness += val[1].get();
+        for (Text val : values) {
+            String[] songSpecifics = val.toString().split("\\|");
+            songCount += Float.parseFloat(songSpecifics[0]);
+            loudness += Float.parseFloat(songSpecifics[1]);
         }
 
         float loudnessAverage = loudness/songCount;

@@ -2,21 +2,22 @@ package csx55.hadoop.QuestionFour;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ReducerOne extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class ReducerOne extends Reducer<Text, FloatWritable, Text, FloatWritable> {
 
     private Text artistID = new Text();
-    private IntWritable maxFadingTime = new IntWritable();
+    private FloatWritable maxFadingTime = new FloatWritable();
     
     @Override
-    protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
 
-        int totalFadingTime = 0;
+        float totalFadingTime = 0;
 
-        for(IntWritable val : values){
+        for(FloatWritable val : values){
             totalFadingTime += val.get();
         }
 
