@@ -8,6 +8,7 @@ import org.apache.hadoop.mapreduce.Job;
 import csx55.hadoop.QuestionFive.QuestionFiveMain;
 import csx55.hadoop.QuestionFour.QuestionFourMain;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
+import csx55.hadoop.QuestionSix.QuestionSixMain;
 import csx55.hadoop.QuestionTwo.QuestionTwoMain;
 import csx55.hadoop.QuestionThree.QuestionThreeMain;
 
@@ -44,25 +45,29 @@ public class Driver {
 
         Driver mapReduce = new Driver();
 
-        mapReduce.setJob("QuestionOneJob");
-        QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
-        questionOne.answerQuestion();
+        // mapReduce.setJob("QuestionOneJob");
+        // QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
+        // questionOne.answerQuestion();
         
-        mapReduce.setJob("QuestionTwoJob");
-        QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
-        questionTwo.answerQuestion();
+        // mapReduce.setJob("QuestionTwoJob");
+        // QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
+        // questionTwo.answerQuestion();
 
-        mapReduce.setJob("QuestionThreeJob");
-        QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
-        questionThree.answerQuestion();
+        // mapReduce.setJob("QuestionThreeJob");
+        // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
+        // questionThree.answerQuestion();
 
-        mapReduce.setJob("QuestionFourJob");
-        QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
-        questionFour.answerQuestion();
+        // mapReduce.setJob("QuestionFourJob");
+        // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
+        // questionFour.answerQuestion();
 
-        mapReduce.setJob("QuestionFiveJob");
-        QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
-        questionFive.answerQuestion();
+        // mapReduce.setJob("QuestionFiveJob");
+        // QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
+        // questionFive.answerQuestion();
+
+        // mapReduce.setJob("QuestionSixJob");
+        // QuestionSixMain questionSix = new QuestionSixMain(mapReduce.getJob(), input, output);
+        // questionSix.answerQuestion();
 
 
         
