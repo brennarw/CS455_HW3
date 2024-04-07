@@ -8,6 +8,7 @@ import org.apache.hadoop.mapreduce.Job;
 import csx55.hadoop.QuestionFive.QuestionFiveMain;
 import csx55.hadoop.QuestionFour.QuestionFourMain;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
+import csx55.hadoop.QuestionSeven.QuestionSevenMain;
 import csx55.hadoop.QuestionSix.QuestionSixMain;
 import csx55.hadoop.QuestionTwo.QuestionTwoMain;
 import csx55.hadoop.QuestionThree.QuestionThreeMain;
@@ -68,6 +69,10 @@ public class Driver {
         // mapReduce.setJob("QuestionSixJob");
         // QuestionSixMain questionSix = new QuestionSixMain(mapReduce.getJob(), input, output);
         // questionSix.answerQuestion();
+
+        mapReduce.setJob("QuestionSevenJob");
+        QuestionSevenMain questionSeven = new QuestionSevenMain(mapReduce.getJob(), input, output);
+        questionSeven.answerQuestion();
 
 
         
