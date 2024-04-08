@@ -25,7 +25,7 @@ public class MapperOne extends Mapper<Object, Text, Text, FloatWritable> {
         float calculatedFadingTime = Float.parseFloat(attributes[5]) + (Float.parseFloat(attributes[4]) - Float.parseFloat(attributes[12]));
 
         fadingTime.set(calculatedFadingTime); //end_of_fad_in + (duration - start_of_fade_out)
-        artistID.set(attributes[0]); //artistID
+        artistID.set(attributes[34]); //artistID
 
         context.write(new Text(artistID), fadingTime);
 

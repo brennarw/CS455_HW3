@@ -65,9 +65,9 @@ public class Driver {
         // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
         // questionThree.answerQuestion();
 
-        // mapReduce.setJob("QuestionFourJob");
-        // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
-        // questionFour.answerQuestion();
+        mapReduce.setJob("QuestionFourJob");
+        QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
+        questionFour.answerQuestion();
 
         // mapReduce.setJob("QuestionFiveJob");
         // QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
@@ -85,9 +85,9 @@ public class Driver {
         // QuestionEightMain questionEight = new QuestionEightMain(mapReduce.getJob(), input, output);
         // questionEight.answerQuestion();
 
-        mapReduce.setJob("QuestioNineJob");
-        QuestionNineMain questionNine = new QuestionNineMain(mapReduce.getJob(), input, output);
-        questionNine.answerQuestion();
+        // mapReduce.setJob("QuestioNineJob");
+        // QuestionNineMain questionNine = new QuestionNineMain(mapReduce.getJob(), input, output);
+        // questionNine.answerQuestion();
 
 
         
