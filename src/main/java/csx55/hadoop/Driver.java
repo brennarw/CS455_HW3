@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
 
+import csx55.hadoop.QuestionEight.QuestionEightMain;
 import csx55.hadoop.QuestionFive.QuestionFiveMain;
 import csx55.hadoop.QuestionFour.QuestionFourMain;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
@@ -54,9 +55,9 @@ public class Driver {
         // QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
         // questionTwo.answerQuestion();
 
-        // mapReduce.setJob("QuestionThreeJob");
-        // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
-        // questionThree.answerQuestion();
+        mapReduce.setJob("QuestionThreeJob");
+        QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
+        questionThree.answerQuestion();
 
         // mapReduce.setJob("QuestionFourJob");
         // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
@@ -70,9 +71,13 @@ public class Driver {
         // QuestionSixMain questionSix = new QuestionSixMain(mapReduce.getJob(), input, output);
         // questionSix.answerQuestion();
 
-        mapReduce.setJob("QuestionSevenJob");
-        QuestionSevenMain questionSeven = new QuestionSevenMain(mapReduce.getJob(), input, output);
-        questionSeven.answerQuestion();
+        // mapReduce.setJob("QuestionSevenJob");
+        // QuestionSevenMain questionSeven = new QuestionSevenMain(mapReduce.getJob(), input, output);
+        // questionSeven.answerQuestion();
+
+        // mapReduce.setJob("QuestionEightJob");
+        // QuestionEightMain questionEight = new QuestionEightMain(mapReduce.getJob(), input, output);
+        // questionEight.answerQuestion();
 
 
         
