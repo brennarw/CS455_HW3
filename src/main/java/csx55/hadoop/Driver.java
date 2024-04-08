@@ -5,9 +5,11 @@ import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
 
+import csx55.hadoop.CombineData.CombineDataMain;
 import csx55.hadoop.QuestionEight.QuestionEightMain;
 import csx55.hadoop.QuestionFive.QuestionFiveMain;
 import csx55.hadoop.QuestionFour.QuestionFourMain;
+import csx55.hadoop.QuestionNine.QuestionNineMain;
 import csx55.hadoop.QuestionOne.QuestionOneMain;
 import csx55.hadoop.QuestionSeven.QuestionSevenMain;
 import csx55.hadoop.QuestionSix.QuestionSixMain;
@@ -47,6 +49,10 @@ public class Driver {
 
         Driver mapReduce = new Driver();
 
+        // mapReduce.setJob("CombineDataJob");
+        // CombineDataMain combineData = new CombineDataMain(mapReduce.getJob(), input, output);
+        // combineData.combine();
+
         // mapReduce.setJob("QuestionOneJob");
         // QuestionOneMain questionOne = new QuestionOneMain(mapReduce.getJob(), input, output);
         // questionOne.answerQuestion();
@@ -55,9 +61,9 @@ public class Driver {
         // QuestionTwoMain questionTwo = new QuestionTwoMain(mapReduce.getJob(), input, output);
         // questionTwo.answerQuestion();
 
-        mapReduce.setJob("QuestionThreeJob");
-        QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
-        questionThree.answerQuestion();
+        // mapReduce.setJob("QuestionThreeJob");
+        // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
+        // questionThree.answerQuestion();
 
         // mapReduce.setJob("QuestionFourJob");
         // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
@@ -78,6 +84,10 @@ public class Driver {
         // mapReduce.setJob("QuestionEightJob");
         // QuestionEightMain questionEight = new QuestionEightMain(mapReduce.getJob(), input, output);
         // questionEight.answerQuestion();
+
+        mapReduce.setJob("QuestioNineJob");
+        QuestionNineMain questionNine = new QuestionNineMain(mapReduce.getJob(), input, output);
+        questionNine.answerQuestion();
 
 
         

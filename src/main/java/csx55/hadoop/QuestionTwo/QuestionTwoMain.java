@@ -12,6 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import csx55.hadoop.Driver;
 
 //which artist's songs are the loudest on average?
+//answer: ARRTJ3W1187B993212      0.566
 public class QuestionTwoMain {
     
     private Job job;

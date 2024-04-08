@@ -16,9 +16,37 @@ import csx55.hadoop.Driver;
     mode, energy, key, loudness, when it stops fading in, when it starts fading out, and which terms describe the artist who made it. Give both the song and artist
     who made it unique names.
 
-    answer to question 3: SOAAXAK12A8C13C030      1.0
+    answer to question 3: SOAAXAK12A8C13C030
+
+    hottness: 1.0
+
+    tempo: 150.569
+
+    time signature: 3
+
+    danceability: 0.0
+
+    duration: 145.05751
+
+    mode: 1
+
+    energy: 0.0
+
+    key: 11
+
+    loudness: -10.544
+
+    stops fading in at: 2.223
+
+    starts fading out: 140.132
+
+    artist terms: 'blues-rock' 'heavy metal' 'hard rock' 'classic rock' 'psychedelic rock' 'progressive rock' 'southern rock' 'blues' 'oldies' 'stoner rock' 
+            'ballad' 'soft rock' 'rock' 'garage rock' 'jam band' 'alternative rock' 'progressive metal' 'grunge' 'male vocalist' '70s' 'pop rock' 'british' 
+            'guitar' 'funk' 'psychedelic' 'reggae' '60s' 'metal' 'alternative' 'soundtrack' 'jazz' 'folk' 'pop' 'experimental' 'indie rock' 'punk' 'indie'
 */
 
+//approach: have a song that with the same exact variables but increase danceability and energy from 0.0 to 1.0
+//include any songs that have a hottness, energy, and danceability of 1.0
 
 public class QuestionNineMain {
     
