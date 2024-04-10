@@ -15,6 +15,7 @@ import csx55.hadoop.QuestionSeven.QuestionSevenMain;
 import csx55.hadoop.QuestionSix.QuestionSixMain;
 import csx55.hadoop.QuestionTwo.QuestionTwoMain;
 import csx55.hadoop.QuestionThree.QuestionThreeMain;
+import csx55.hadoop.QuestionTen.QuestionTenMain;
 
 
 public class Driver {
@@ -65,9 +66,9 @@ public class Driver {
         // QuestionThreeMain questionThree = new QuestionThreeMain(mapReduce.getJob(), input, output);
         // questionThree.answerQuestion();
 
-        mapReduce.setJob("QuestionFourJob");
-        QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
-        questionFour.answerQuestion();
+        // mapReduce.setJob("QuestionFourJob");
+        // QuestionFourMain questionFour = new QuestionFourMain(mapReduce.getJob(), input, output);
+        // questionFour.answerQuestion();
 
         // mapReduce.setJob("QuestionFiveJob");
         // QuestionFiveMain questionFive = new QuestionFiveMain(mapReduce.getJob(), input, output);
@@ -88,6 +89,10 @@ public class Driver {
         // mapReduce.setJob("QuestioNineJob");
         // QuestionNineMain questionNine = new QuestionNineMain(mapReduce.getJob(), input, output);
         // questionNine.answerQuestion();
+
+        mapReduce.setJob("QuestioTenJob");
+        QuestionTenMain questionTen = new QuestionTenMain(mapReduce.getJob(), input, output);
+        questionTen.answerQuestion();
 
 
         

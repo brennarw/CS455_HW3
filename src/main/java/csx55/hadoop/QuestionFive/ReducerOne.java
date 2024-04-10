@@ -23,7 +23,7 @@ public class ReducerOne extends Reducer<IntWritable, Text, Text, FloatWritable> 
 
         List<Text> valueList = new ArrayList<>();
         
-        //first for loop finds the max/min/median values
+        //first for loop finds the max/min values
         for (Text val : values) {
 
             valueList.add(new Text(val));
