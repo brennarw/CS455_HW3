@@ -11,8 +11,6 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class ReducerOne extends Reducer<IntWritable, Text, Text, Text>  {
 
     private PriorityQueue<SongObject> pq = new PriorityQueue<>();
-    // private Text songID = new Text();
-    // private FloatWritable[] maxFadingTime = new FloatWritable[2];
 
     class SongObject implements Comparable<SongObject>{
         private String songID;
@@ -53,8 +51,4 @@ public class ReducerOne extends Reducer<IntWritable, Text, Text, Text>  {
         }
         
     }
-    
-    //cleanup runs only once after all reduce tasks have completed
-    // protected void cleanup(Context context) throws IOException, InterruptedException {
-    // }
 }

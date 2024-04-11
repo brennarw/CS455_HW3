@@ -15,13 +15,12 @@ public class ReducerOne extends Reducer<Text, FloatWritable, Text, FloatWritable
     
     @Override
     protected void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
-      int sum = 0;
+     
       for (FloatWritable val : values) {
-        sum += val.get();
-      }
-      if(sum > maxSongHottness.get()){
-        songID.set(key);
-        maxSongHottness.set(sum);
+        if(val.get() > maxSongHottness.get()){
+          songID.set(key);
+          maxSongHottness.set(val.get());
+        }
       }
     }
 

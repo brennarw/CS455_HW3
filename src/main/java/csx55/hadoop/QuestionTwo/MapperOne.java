@@ -25,11 +25,6 @@ public class MapperOne extends Mapper<Object, Text, Text, Text> {
         String loudnessValue = "1|" + attributes[9];
 
         artistID.set(attributes[34]);  
-        //loudness.set(Float.parseFloat(attributes[9])); 
-
-        // FloatWritable[] songSpecifics = new FloatWritable[2];
-        // songSpecifics[0] = one;
-        // songSpecifics[1] = loudness;
 
         context.write(artistID, new Text(loudnessValue));
 

@@ -11,6 +11,9 @@ public class MapperOne extends Mapper<Object, Text, Text, Text> {
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
+        //key = artistID
+        //value = songValue
+
         String[] attributes = value.toString().split("\\|");
 
         if(attributes[0].equals("nan")){
@@ -22,8 +25,6 @@ public class MapperOne extends Mapper<Object, Text, Text, Text> {
 
         String songValue = attributes[0] + "|" + attributes[1] + "|" + attributes[9] + "|" + attributes[11]; //familiarity|hottness|similarity|termFreq
 
-        //System.out.println("familiarity: " + attributes[1]);
-        // System.exit(0);
 
         context.write(new Text(attributes[2]), new Text(songValue));
 

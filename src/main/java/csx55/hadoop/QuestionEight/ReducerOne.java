@@ -42,7 +42,7 @@ public class ReducerOne extends Reducer<Text, Text, Text, Text> {
         //NOTE: artist_terms_freq has brackets, similar_artists does not
         for(Text val : values){
             String[] songAttributes = val.toString().split("\\|");
-            double popularity = Double.parseDouble(songAttributes[0]) + Double.parseDouble(songAttributes[1]);
+            double popularity = Double.parseDouble(songAttributes[0]) + Double.parseDouble(songAttributes[1]); //familiarity + hottness
 
             String[] similarArtists = songAttributes[2].split(" ");
             String[] termFrequency = songAttributes[3].split(" ");
@@ -64,9 +64,6 @@ public class ReducerOne extends Reducer<Text, Text, Text, Text> {
 
     //cleanup runs only once after all reduce tasks have completed
     protected void cleanup(Context context) throws IOException, InterruptedException {
-
-        // System.out.println("queue size: " + pq.size());
-        // System.exit(0);
 
         ArtistObject unique = pq.poll();
         String uniqueVal = unique.artistID + "| popularity:" + String.valueOf(unique.popularity) + " | similarity:" + String.valueOf(unique.similarity); 

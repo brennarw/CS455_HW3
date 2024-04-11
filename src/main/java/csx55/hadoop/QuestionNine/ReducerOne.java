@@ -16,8 +16,8 @@ public class ReducerOne extends Reducer<Text, Text, Text, Text> {
         for(Text val : values){
             String[] attributes = val.toString().split("\\|");
 
-            context.write(new Text("song:"), key); //TODO: need to come up with a new songID
-            context.write(new Text("artist:"), new Text(attributes[33])); //TODO: need to come up with a new artistID
+            context.write(new Text("song:"), new Text("ImaginationSong")); //TODO: need to come up with a new songID
+            context.write(new Text("artist:"), new Text("BrennaWolf")); //TODO: need to come up with a new artistID
             context.write(new Text("hottness:"), new Text(attributes[0]));
             context.write(new Text("tempo:"), new Text(attributes[12]));
             context.write(new Text("time signature:"), new Text(attributes[13]));

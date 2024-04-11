@@ -14,9 +14,10 @@ public class MapperOne extends Mapper<Object, Text, IntWritable, Text> {
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-        String[] attributes = value.toString().split("\\|");
+        //key = one
+        //value = [songID, danceability, energy]
 
-        //System.out.println("danceability: " + attributes[3] + " | energy: " + attributes[6]);
+        String[] attributes = value.toString().split("\\|");
 
         String reducerVal = attributes[0] + "|" + attributes[3] + "|" + attributes[6]; //songID|danceability|energy
 

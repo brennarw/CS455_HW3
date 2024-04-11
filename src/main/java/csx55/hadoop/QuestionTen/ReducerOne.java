@@ -5,41 +5,34 @@ import java.io.IOException;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
-import java.util.HashMap;
+import java.util.Hashtable;
 
 
 public class ReducerOne extends Reducer<Text, Text, Text, Text> {
 
-    private final static IntWritable minYear = new IntWritable(Integer.MAX_VALUE); 
-    private final static IntWritable maxYear = new IntWritable();
-
-    //@Override
+    @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-        HashMap<String, Integer> artistTerms = new HashMap<>();
+        double songCount = 0.0;
+        double tempoSum = 0;
+        double durationSum = 0;
 
         for(Text val : values){
-            String[] terms = val.toString().split(" ");
 
-            for(int i = 0; i < terms.length; i++){
-                if(!artistTerms.isEmpty() && artistTerms.containsKey(key)){
-                    artistTerms.computeIfPresent(terms[i], (termKey, termVal) -> termVal + 1); //increment the 
-                } else{
-                    artistTerms.put(terms[i], 1);
-                }
-            }
+            String[] songSpecifics = val.toString().split("\\|");
+            songCount += Double.parseDouble(songSpecifics[0]);
+            tempoSum += Double.parseDouble(songSpecifics[1]);
+            durationSum += Double.parseDouble(songSpecifics[2]);
 
-            // int year = Integer.parseInt(val.toString());
-            // if(year < minYear.get() && year != 0){
-            //     minYear.set(year);
-            // }
-            // else if(year > maxYear.get()){
-            //     maxYear.set(year);
-            // }
         }
 
-        context.write(new Text("min year:"), new Text(String.valueOf(minYear.get())));
-        context.write(new Text("max year:"), new Text(String.valueOf(maxYear.get())));
+        double tempoAverage = tempoSum / songCount;
+        double durationAverage = durationSum / songCount;
+
+        String yearValue = "Average tempo: " + String.valueOf(tempoAverage) + " | Average duration: " + String.valueOf(durationAverage);
+
+        context.write(key, new Text(yearValue)); 
+
 
     }
 }

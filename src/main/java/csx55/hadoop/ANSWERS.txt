@@ -1,0 +1,159 @@
+question 1: Which artist has the most songs in the data set?
+
+    answer: AROIHOI122988FEB8E      13
+    approach: The mapper uses the metadata file, maps the artistID as the key and an integer one as the value.
+        Then the reducer sums all of the integer values up for each key and compares them against a max variable. 
+        Then, finally in a cleanup method, the reducer writes the artistID with the max songs to the output.
+
+
+question 2: which artist's songs are the loudest on average?
+
+    answer: ARRTJ3W1187B993212      0.566 
+    approach: the mapper writes the <artistID, [1, loudness]> key-value pair to the reducer. The reducer
+        then loops through the values for each artistID and sums up the values from index 0, this gets a total songCount, 
+        and the loudness for each song. Then the average loudness is found by dividing the total loudness by the song count.
+        Then the average is compared against a shared maxAverageLoudness variable between reducers. Finally in a cleanup method,
+        the artistID with the maxAverageLoudness for their songs is written to the output. 
+
+    
+question 3: What is the song with the highest hottness (popularity) score?
+
+    answer: SOAAXAK12A8C13C030      1.0
+    approach: The mapper writes the key-value pair, <songID, song_hottness>, to the reducer. The reducer then takes the hottness
+        for each song, compares it against a shared maxSongHottness variable, and sets the variable if the current hottness is greater. 
+        Then finally, in a cleanup method, the reducer writes the songID with the max hottness score to the output.
+
+
+question 4: Which artist has the highest total time spent fading in their songs?
+
+    answer: ARMPRI31187FB4F7D9      299.0238
+    approach: The mapper writes the key-value pair, <artistID, totalFadingTime>, to the reducer. The totalFadingTime is calculated for each
+        song by doing the following calculation: end_of_fade_in + (duration - start_of_fade_out). The reducer than receives a list of totalFadingTime 
+        for each song written by that artist. The reducer sums these up, compares them to a shared variable to find the artist with the max fading time,
+        then writes this artistID and maxFadingTime to the output in a cleanup method.
+
+
+question 5: What is the longest song(s)? The shortest song(s)? The song(s) of median length?
+
+    answer: 
+        SOYEVCP12AC9E17E09      1.04444
+        SOFNFIL12A8AE47377      933.642
+        SOPNUVB12A8C13627D      920.7636
+        SOMUFQB12A81C22FA9      1.2273
+        SOQPGGJ12A8C13ABEB      938.00446
+        SOGWUAE12A6D4FCE22      880.9269
+        SOIUJNU12A6D4FB62D      912.9791
+        SOKKDSX12AB018866A      1819.7677
+        SOYSHBO12AB018CA41      914.02405
+        SOBTJCY12A8C137956      904.8028
+    analysis: 
+        min duration ~ 1 second
+        max duration ~ 1819 seconds
+        median duration ~ 880 - 938 seconds
+    approach: The mapper writes the key-value pair, <one, [songID, duration]>, to the reducer. This way only one reducer
+        handles all of the data. This reducer, in the first for loop, loops through all of the song durations to find the min
+        duration and max duration. After this for loop, the median duration is found by doing (min + max)/2. Then in a second for 
+        loop, the reducer loops back through all of the songs and writes any songIDs whose durations match these times to the output.
+        NOTE: the durations are truncated so that the decimals don't have to match exactly. Additionally, since the reducer calculated 
+        the median duration, any songID whose duration is within 30 seconds of this calculated median duration is written to the output.
+
+
+question 6: What are the 10 most energetic and danceable songs? List them in descending order.
+
+    answer: 
+        SOFMZFX12AB018437A      0.0 0.0
+        SOZJGIC12AB018937D      0.0 0.0
+        SOCHUHK12A6D4F7883      0.0 0.0
+        SOYJMKO12A8C142B82      0.0 0.0
+        SOPEXAV12A8C144164      0.0 0.0
+        SOMBNUM12A81C215EF      0.0 0.0
+        SOYSVSH12A8C143429      0.0 0.0
+        SOTPYPV12AC907281F      0.0 0.0
+        SOZBXVO12AB0188824      0.0 0.0
+        SOEJLYX12AC468C212      0.0 0.0
+    analysis: values weren't provided for energetic or danceable variables in the dataset.
+    approach: The mapper writes the key-value pair, <one, [songID, danceability, energy]>, to the reducer. This way, only one reducer handles
+        all of the data. This reducer grabs the values, creates a SongObject with them, then addes that object to a priority queue that first sorts
+        based on danceability, and if the danceability values match, then it sorts based on energetic values. This priority queue is sorted in descending order.
+        Once all SongObjects have been added to the priority queue, the reducer then writes the first 10 elements of the priority queue to the output.
+
+
+question 7: Create segment data for the average song. Include start time, pitch, timbre, max loudness, max loudness time, and start loudness.
+
+    answer: 
+        max_loudness           -13.082420473889686
+        max_loudness_time       0.05685109326410183
+        pitch                   0.3596195354865081
+        start-time              143.45035831427043
+        start_loudness         -21.7032465828509
+        timbre                  4.452619022718732
+    approach: For this question, I used a separate reducer for each category. The mapper writes the key-value pair, <category, categoryValue>, to the 
+        reducer. Each reducer then grabs these values, sums them up, then divides them by the total count in order to get the average. Then, each reducer 
+        writes what category it is responsible for, as well as the calculated average, to the output. When all reducers are done, we have a new segment of 
+        data for the average song, based on 6 different factors.
+
+
+question 8: Which artist is the most generic? Which artist is the most unique?
+
+    answer: 
+        Most Unique:    ARRH63Y1187FB47783| popularity:1.9597163026507753 | similarity:105.296
+        Most Generic:   ARWRMEN11F50C4BD18| popularity:0.0 | similarity:126.99300000000001
+    approach: To answer this question, I looked at 4 different categories: hottness, similar_artists, artist_terms_freq, and familiarity. I created the following 
+        rules: if the artist is very familiar and has a high hottness, but a low number of similar artists and artist_terms_freq -> unique, if the artist has a 
+        high number of similar artists and artist_terms_freq and is not familiar and has a low hottness -> generic. The mapper writes the key-value pair, <artistID,
+        [familiarity, hottness, similarity, termFreq]>, to the reducer. The reducer then grabs these values for each artist and calculates the overall popularity and 
+        similarity of that artist: popularity = familiarity + hottness, similarity = number_of_similar_artists + total_term_frequency_for_each_term. With this variables,
+        the reducer creates an ArtistObject then adds that object to a priority queue. This priority queue first sorts on max popularity, then if popularity is the same, it sorts
+        based on minimum similarity. After every object is added to the priority queue, the artist with the highest popularity and low similarity is located at the head of the queue,
+        and the artist with the lowest popularity and high similarity is located at the tail of the queue. The reducer then writes the head of the queue, the most unique artist, and the
+        tail of the queue, the most generic artist, to the output.
+
+
+question 9: Imagine a song with a higher hotness score than the song in your answer to Q3. List this song's tempo, time signature, danceability, duration, 
+    mode, energy, key, loudness, when it stops fading in, when it starts fading out, and which terms describe the artist who made it. Give both the song and artist
+    who made it unique names.
+
+    answer: 
+        song:                   ImaginationSong
+        artist:                 BrennaWolf
+        hottness:               1.0
+        tempo:                  150.569
+        time signature:         3
+        danceability            1.0
+        duration:               145.05751
+        mode:                   1
+        energy:                 0.5
+        key:                    11
+        loudness:              -10.544
+        stops fading in at:     2.223
+        starts fading in at:    140.132
+        artist terms:           'blues-rock' 'heavy metal' 'hard rock' 'classic rock' 'psychedelic rock' 'progressive rock' 'southern rock' 'blues' 'oldies' 'stoner rock' 
+                                'ballad' 'soft rock' 'rock' 'garage rock' 'jam band' 'alternative rock' 'progressive metal' 'grunge' 'male vocalist' '70s' 'pop rock' 'british' 
+                                'guitar' 'funk' 'psychedelic' 'reggae' '60s' 'metal' 'alternative' 'soundtrack' 'jazz' 'folk' 'pop' 'experimental' 'indie rock' 'punk' 'indie'
+
+    approach: The mapper finds the song with the highest hottness found in question 3. The mapper writes this song to the reducer, with the songID as the key and all of its other
+        attributes as the value. The reducer then takes this value, changes the danceability = 1 and the energy = 0.5 and modifies the songID and the artistID then writes this to the output.
+        This is data for an imaginative song that could possibly have a higher hottness if something similar was released. The original song with the highest hottness had a danceability and 
+        energy score of 0. By increasing this, the hottness score could possibly increase.
+
+
+question 10: How do musical characteristics, such as tempo and song duration, vary across different   
+    decades?
+
+    answer:
+        1926    Average tempo: 117.38863999999998 | Average duration: 202.92813359999997
+        1936    Average tempo: 115.32166666666666 | Average duration: 181.03247166666665
+        1946    Average tempo: 116.05610714285716 | Average duration: 227.756515
+        1956    Average tempo: 114.76779220779214 | Average duration: 207.62586038961038
+        1966    Average tempo: 121.36623093220338 | Average duration: 242.19992006355906
+        1976    Average tempo: 125.13293431635392 | Average duration: 239.98729071045577
+        1986    Average tempo: 122.24989658906352 | Average duration: 240.16195983216
+        1996    Average tempo: 123.23609597523254 | Average duration: 238.39911879495148
+        2006    Average tempo: 123.14945461751874 | Average duration: 238.84197400713367
+    approach: I found that from the songs that provided a year, the minimum year in the dataset was 1926 and the maximum year was 2006. With this information, I then decided to look at 9 different
+        time periods, each about 10 years each. To do this I used 9 reducers, one for each time period. Each reducer is responsible for gathering the tempo and duration of songs within a 10 year time period.
+        The mapper grabs the year of each song, finds which time period it falls in, then writes the tempo and duration to the associated reducer. Each reducer then grabs this information, sums up the tempo and 
+        duration values for every song within that time period, divides them both by the total number of songs, then writes the calculated average to the output along which which time period it falls in. I found that 
+        from 1926 to 2006, both the tempo and duration of songs increased. 
+        NOTE: songs that didn't provide a release year were not included in this analysis. 
+                

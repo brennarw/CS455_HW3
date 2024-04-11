@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import csx55.hadoop.Driver;
 
-
+//what is the song with the highest hottness (popularity) score?
 public class QuestionThreeMain {
     
     private Job job;

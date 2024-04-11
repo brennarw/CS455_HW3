@@ -7,6 +7,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class MapperOne extends Mapper<Object, Text, Text, Text> {
+    
+    private final static Text songYear = new Text();
 
     /*have 9 reducers
     * reducer 1 key: 1926
@@ -26,40 +28,39 @@ public class MapperOne extends Mapper<Object, Text, Text, Text> {
         String[] attributes = value.toString().split("\\|");
 
         int year = Integer.parseInt(attributes[44]);
+        //attributes[41] is artist terms
 
         if(year != 0 && year < 1936){
-            context.write(new Text("1926"), new Text(attributes[41])); //artist terms
+            songYear.set("1926");
         }
         else if(year != 0 && year < 1946){
-            context.write(new Text("1936"), new Text(attributes[41])); //artist terms
+            songYear.set("1936");
         }
         else if(year != 0 && year < 1956){
-            context.write(new Text("1946"), new Text(attributes[41])); //artist terms
+            songYear.set("1946"); 
         }
         else if(year != 0 && year < 1966){
-            context.write(new Text("1956"), new Text(attributes[41])); //artist terms
+            songYear.set("1956"); 
         }
         else if(year != 0 && year < 1976){
-            context.write(new Text("1966"), new Text(attributes[41])); //artist terms
+            songYear.set("1966"); 
         }
         else if(year != 0 && year < 1986){
-            context.write(new Text("1976"), new Text(attributes[41])); //artist terms
+            songYear.set("1976");
         }
         else if(year != 0 && year < 1996){
-            context.write(new Text("1986"), new Text(attributes[41])); //artist terms
+            songYear.set("1986");
         }
         else if(year != 0 && year < 2006){
-            context.write(new Text("1996"), new Text(attributes[41])); //artist terms
+            songYear.set("1996"); 
         }
         else if(year != 0 && year <= 2010){
-            context.write(new Text("2006"), new Text(attributes[41])); //artist terms
+            songYear.set("2006"); 
         }
 
-        //System.out.println("year:" + attributes[44]);
+        String songTempoDuration = "1|" + attributes[13] + "|" + attributes[4]; //1|tempo|duration
 
-
-
-
+        context.write(songYear, new Text(songTempoDuration));
 
     }
 }

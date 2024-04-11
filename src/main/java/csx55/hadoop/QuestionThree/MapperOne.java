@@ -6,7 +6,7 @@ import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-//uses metadat.txt
+
 public class MapperOne extends Mapper<Object, Text, Text, FloatWritable> {
 
     private static FloatWritable songHottness = new FloatWritable();
@@ -16,9 +16,6 @@ public class MapperOne extends Mapper<Object, Text, Text, FloatWritable> {
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-        //String[] lines = value.toString().split("\n"); //each line represents one artist
-        
-        //for(String line : lines){
             String[] songAttributes = value.toString().split("\\|");
             songID.set(songAttributes[0]); //artistID is the third attribute in the line
 
@@ -30,6 +27,5 @@ public class MapperOne extends Mapper<Object, Text, Text, FloatWritable> {
             }
             
             context.write(songID, songHottness); //this is what writes each <key, value> pair to the reducer
-        //}
     }
 }
