@@ -1,4 +1,4 @@
-# Distributing Systems HW3
+# Distributing Systems HW3: MapReduce
 
 ## OBJECTIVE
 The objective of this assignment is to gain experience in developing MapReduce programs. As part of this assignment, you will be working with the Million Song dataset. You will be developing MapReduce programs that parse and process song analyses and metadata to answer questions about the songs.
